@@ -7,12 +7,21 @@ import EventComponent from "@/components/EventComponent";
 
 const HomeScreen = () => {
   return (
-    <ThemedView style={styles.container}>
-      <MenuBar />
-      <ThemedView style={styles.margin}>
-        {Data.map((event) => (
-          <EventComponent key={`${event.id}-${event.name}`} event={event} />
-        ))}
+    <ThemedView
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
+      }}
+    >
+      <ThemedView style={styles.container}>
+        <MenuBar />
+        <ThemedView style={styles.margin}>
+          {Data.map((event) => (
+            <EventComponent key={`${event.id}-${event.name}`} event={event} />
+          ))}
+        </ThemedView>
       </ThemedView>
     </ThemedView>
   );
@@ -26,6 +35,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     padding: 10,
     paddingTop: 60,
+    width: "100%",
+    maxWidth: 500,
   },
   margin: {
     marginTop: 20,

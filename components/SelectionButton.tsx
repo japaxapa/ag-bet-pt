@@ -1,12 +1,12 @@
 import { StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { ThemedView } from "./ThemedView";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import { ThemedText } from "./ThemedText";
-import { SelectionType } from "@/types/types";
+import { SelectionFullType, useInfo } from "@/hooks/context/useInfo";
 
 interface SelectionButtonProps {
-  selection: SelectionType;
+  selection: SelectionFullType;
 }
 
 const SelectionButton = ({ selection }: SelectionButtonProps) => {
@@ -18,9 +18,6 @@ const SelectionButton = ({ selection }: SelectionButtonProps) => {
     container: {
       paddingHorizontal: 15,
       paddingVertical: 5,
-    },
-
-    border: {
       borderColor: "grey",
       borderWidth: 2,
       borderStyle: "solid",
@@ -38,16 +35,33 @@ const SelectionButton = ({ selection }: SelectionButtonProps) => {
       justifyContent: "center",
       alignItems: "center",
     },
+
+    bgGreen: {
+      backgroundColor: "lime",
+    },
   });
 
+  const { checkIsSelected, toggleSelected } = useInfo();
+  const router = useRouter();
+
+  const isSelected = checkIsSelected(selection);
+
+  const containerStyle = (style: any) => [
+    style,
+    isSelected ? styles.bgGreen : {},
+  ];
+
+  const handlePress = () => {
+    toggleSelected(selection);
+    router.push("/modal");
+  };
+
   return (
-    <Pressable style={{ ...styles.container, ...styles.border }}>
-      <Link href={"/modal"}>
-        <ThemedView style={styles.btnContainer}>
-          <ThemedText>{selection.name}</ThemedText>
-          <ThemedText>{selection.price}</ThemedText>
-        </ThemedView>
-      </Link>
+    <Pressable style={containerStyle(styles.container)} onPress={handlePress}>
+      <ThemedView style={containerStyle(styles.btnContainer)}>
+        <ThemedText>{selection.name}</ThemedText>
+        <ThemedText>{selection.price}</ThemedText>
+      </ThemedView>
     </Pressable>
   );
 };

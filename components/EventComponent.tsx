@@ -18,10 +18,10 @@ const EventComponent = ({ event }: EventComponentProps) => {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedView style={{ ...styles.border, ...styles.title }}>
-        <ThemedText style={{ ...styles.bold }}>{titles[0]}</ThemedText>
-        <ThemedText style={{ ...styles.bold }}>vs</ThemedText>
-        <ThemedText style={{ ...styles.bold }}>{titles[1]}</ThemedText>
+      <ThemedView style={[styles.border, styles.title]}>
+        <ThemedText style={styles.bold}>{titles[0]}</ThemedText>
+        <ThemedText style={styles.bold}>vs</ThemedText>
+        <ThemedText style={styles.bold}>{titles[1]}</ThemedText>
       </ThemedView>
 
       <ThemedView style={styles.marketContainer}>

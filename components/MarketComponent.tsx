@@ -33,17 +33,16 @@ const MarketComponent = ({ market }: MarketComponentProps) => {
   }
 
   const title = formatTitle(market.name);
-  const size = market.selections.length;
 
   return (
-    <ThemedView style={{ ...styles.border, ...styles.container }}>
+    <ThemedView style={[styles.border, styles.container]}>
       <ThemedText style={styles.title}>{title}</ThemedText>
 
       <ThemedView style={styles.btnContainer}>
         {market.selections.map((selection) => (
           <SelectionButton
             key={`${market.id}-${selection.name}`}
-            selection={selection}
+            selection={{ ...selection, type: title }}
           />
         ))}
       </ThemedView>
